@@ -161,16 +161,9 @@ public class MonthFragment extends BaseFragment implements ViewPager.OnPageChang
 		if (mOtherMonthDay == null)
 			return;
 
-		Date date = CalendarHelper.convertDateTimeToDate(mOtherMonthDay);
-		Date curr = CalendarHelper.convertDateTimeToDate(mCurrentDay);
 		int item = monthPager.getCurrentItem();
-
-		if (date.after(curr)) {
-			monthPager.setCurrentItem(item + 1);
-		} else {
-			monthPager.setCurrentItem(item - 1);
-		}
-
+		int month = mOtherMonthDay.getMonth() - mCurrentDay.getMonth();
+		monthPager.setCurrentItem(item + month);
 	}
 
 	@Override

@@ -98,10 +98,13 @@ public class WeekFragment extends BaseFragment implements ViewPager.OnPageChange
 
 						int offSet = weekPager.getCurrentItem() - MAX_WEEK_SCROLL_COUNT / 2;
 
-						mCurrentDay = offSet == 0 ? getToday() : firstDayOfTodayWeek.plusDays(7 * offSet);
+						DateTime selectDay = offSet == 0 ? getToday() : firstDayOfTodayWeek.plusDays(7 * offSet);
 
-						CalendarHelper.setSelectedDay(mCurrentDay);
-						updateWeekCellsForDaysChange(CalendarHelper.convertDateTimeToDate(mCurrentDay));
+						if (CalendarHelper.isInThisWeek(selectDay, mCurrentDay, FIRST_DAY_OF_WEEK))
+							return;
+
+						CalendarHelper.setSelectedDay(selectDay);
+						updateWeekCellsForDaysChange(CalendarHelper.convertDateTimeToDate(selectDay));
 					} else {
 						bMoveToDate = false;
 					}
@@ -115,9 +118,26 @@ public class WeekFragment extends BaseFragment implements ViewPager.OnPageChange
 	}
 
 	private void updateWeekCellsForDaysChange(Date selectDay) {
+		if (!CalendarHelper.isInThisWeek(selectDay, mCurrentDay, FIRST_DAY_OF_WEEK))
+			weekPager.setCurrentItem(getCurrentItem(selectDay));
+
 		mCurrentDay = CalendarHelper.convertDateToDateTime(selectDay);
+
 		WeekView view = (WeekView) weekPager.findViewWithTag(weekPager.getCurrentItem());
 		view.updateCells(CalendarHelper.getSelectedDay(), true);
+	}
+
+	private int getCurrentItem(Date selectDay) {
+		int position = MAX_WEEK_SCROLL_COUNT / 2;
+
+		if (!CalendarHelper.isInThisWeek(selectDay, mCurrentDay, FIRST_DAY_OF_WEEK)) {
+			mCurrentDay = CalendarHelper.convertDateToDateTime(selectDay);
+			int weeks = CalendarHelper.weeksBetweenDate(selectDay,
+					CalendarHelper.convertDateTimeToDate(mToday), FIRST_DAY_OF_WEEK);
+			bMoveToDate = true;
+			position += weeks;
+		}
+		return position;
 	}
 
 
@@ -139,13 +159,13 @@ public class WeekFragment extends BaseFragment implements ViewPager.OnPageChange
 	@SuppressWarnings("unused")
 	@Subscribe(threadMode = ThreadMode.MAIN)
 	public void onDayChangeEventMainThread(DayChangeEvent event) {
-		if (mCurrentDay.equals(CalendarHelper.convertDateToDateTime(event.currentDay)))
+		DateTime day = CalendarHelper.convertDateToDateTime(event.currentDay);
+		if (mCurrentDay.equals(day))
 			return;
 
-		if (CalendarHelper.convertDateToDateTime(event.currentDay).equals(getToday()) && weekPager != null && weekPager.getCurrentItem() != MAX_WEEK_SCROLL_COUNT / 2)
+		if (day.equals(getToday()) && weekPager != null && weekPager.getCurrentItem() != MAX_WEEK_SCROLL_COUNT / 2)
 			weekPager.setCurrentItem(MAX_WEEK_SCROLL_COUNT / 2);
 
-		mCurrentDay = CalendarHelper.convertDateToDateTime(event.currentDay);
 		updateWeekCellsForDaysChange(event.currentDay);
 	}
 }

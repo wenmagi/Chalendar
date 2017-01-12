@@ -97,4 +97,6 @@
 	<color name="skin_color_numkeyboard_divider">#ffe5e5e5</color>
 	<color name="text_highlight_light">#FF0077D9</color>
 
+	<color name="stroke_lighter_gray">#ffd4d4d4</color>
+
 </resources>

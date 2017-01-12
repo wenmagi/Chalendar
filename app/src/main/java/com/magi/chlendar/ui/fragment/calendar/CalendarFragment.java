@@ -18,6 +18,7 @@ import com.magi.chlendar.ui.adapter.WeekdayArrayAdapter;
 import com.magi.chlendar.ui.fragment.BaseLazyLoadFragment;
 import com.magi.chlendar.utils.CalendarConfig;
 import com.magi.chlendar.utils.EventBusFactory;
+import com.magi.chlendar.utils.LogUtils;
 import com.magi.chlendar.utils.date.DayStyles;
 import com.nineoldandroids.view.ViewHelper;
 
@@ -259,9 +260,7 @@ public class CalendarFragment extends BaseLazyLoadFragment implements Observable
 		} else {
 			stickyWeekPager(scrollY, dragging);
 
-			if (factor != 0) {
-				ViewHelper.setTranslationY(mBinding.layoutMonthCalendar, scrollY * factor);
-			}
+			ViewHelper.setTranslationY(mBinding.layoutMonthCalendar, scrollY * factor);
 
 		}
 	}
