@@ -1,0 +1,9 @@
+<resources>
+	<string name="app_name">Chlendar</string>
+	<string name="action_settings">Settings</string>
+
+	<string name="first_day_of_lunar_month">初一</string>
+	<string name="main_activity_title_format">%1$s %2$s</string>
+
+
+</resources>

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<color name="colorPrimary">#3F51B5</color>
+	<color name="colorPrimaryDark">#303F9F</color>
+	<color name="colorAccent">#FF4081</color>
+	<color name="float_transparent">#00000000</color>
+	<color name="sweet_dialog_bg_color">#FFFFFF</color>
+	<color name="button_text_color">#FFFFFF</color>
+	<color name="gray_btn_bg_color">#D0D0D0</color>
+	<color name="gray_btn_bg_pressed_color">#B6B6B6</color>
+	<color name="blue_btn_bg_color">#AEDEF4</color>
+	<color name="blue_btn_bg_pressed_color">#96BFD2</color>
+	<color name="red_btn_bg_color">#DD6B55</color>
+	<color name="red_btn_bg_pressed_color">#CD5B55</color>
+	<color name="error_stroke_color">#F27474</color>
+	<color name="success_stroke_color">#A5DC86</color>
+	<color name="trans_success_stroke_color">#33A5DC86</color>
+	<color name="warning_stroke_color">#F8BB86</color>
+	<color name="text_color">#575757</color>
+	<color name="material_blue_grey_80">#ff37474f</color>
+	<color name="material_blue_grey_90">#ff263238</color>
+	<color name="material_blue_grey_95">#ff21272b</color>
+	<color name="material_deep_teal_20">#ff80cbc4</color>
+	<color name="material_deep_teal_50">#ff009688</color>
+
+
+	<color name="transparency">#00000000</color>
+	<color name="yellow">#ffffeb0d</color>
+	<color name="yellow_pressed">#fffff9a1</color>
+	<color name="red">#ffff0000</color>
+	<color name="gray">#ff5e6166</color>
+	<color name="gray_pressed">#fff4f4f4</color>
+	<color name="orange">#ffff510d</color>
+	<color name="orange_pressed">#ffcd3f07</color>
+	<color name="green">#ff45c01a</color>
+	<color name="alpha_80_percent_green">#CC45c01a</color>
+
+
+	<color name="white">#ffffffff</color>
+	<color name="alpha_20_white">#33ffffff</color>
+	<color name="alpha_30_percent_white">#4Dffffff</color>
+	<color name="alpha_50_percent_white">#80ffffff</color>
+	<color name="alpha_80_percent_white">#ceffffff</color>
+
+	<color name="black">#ff000000</color>
+	<color name="alpha_20_percent_black">#33000000</color>
+	<color name="alpha_30_percent_black">#4D000000</color>
+	<color name="alpha_50_percent_black">#80000000</color>
+	<color name="alpha_80_percent_black">#CC000000</color>
+
+	<color name="setting_background_gray">#fff1f1f1</color>
+	<!--页面的背景灰色-->
+	<color name="text_color_gray_99">#ff999999</color>
+	<!-- hint gray （例如EditText的hint颜色值） -->
+	<color name="text_color_gray_66">#ff666666</color>
+	<!-- gray -->
+	<color name="text_color_gray_33">#ff333333</color>
+	<!-- deep gray（深黑色，但比黑色优雅） -->
+	<color name="line_gray">#ffdddddd</color>
+	<!-- 线条的黑色 -->
+
+	<!-- Calendar主色调 -->
+	<!-- Calendar主色调 -->
+
+	<color name="date_choose_color_bg">#ffD3D3D3</color>
+	<!-- 选中后的圆圈背景灰色 -->
+	<color name="date_tips_normal_gray">#ce2F4F4F</color>
+	<!-- 农历颜色 -->
+	<color name="china_red">#ffe60000</color>
+	<!-- 中国红，用在中国传统节日 -->
+	<color name="forest_green">#ff008B00</color>
+	<!-- 节日绿 -->
+	<color name="tab_view_background_color">#ffffff</color>
+	<!-- 主页面TabView的背景色 -->
+
+	<color name="main_theme_color">#ff4f4f00</color>
+	<!-- 主题色 -->
+	<color name="alpha_20_percent_main_theme_color">#334f4f00</color>
+	<!-- 20%透明度主题色 -->
+
+	<color name="colorPrimaryDark_dark">#ff4f4f00</color>
+	<color name="colorPrimaryDark_light">#ff4f4f00</color>
+
+	<color name="consume_color_degree_10">#E0F2F1</color>
+	<color name="consume_color_degree_50">#B2DFDB</color>
+	<color name="consume_color_degree_100">#80CBC4</color>
+	<color name="consume_color_degree_150">#4DB6AC</color>
+	<color name="consume_color_degree_200">#26A69A</color>
+	<color name="consume_color_degree_300">#009688</color>
+	<color name="consume_color_degree_400">#00897B</color>
+	<color name="consume_color_degree_600">#00796B</color>
+	<color name="consume_color_degree_800">#00695C</color>
+	<color name="consume_color_degree_other">#004D40</color>
+
+	<color name="skin_color_view_pressed">#ffebebeb</color>
+	<color name="skin_color_text_primary">#ff393939</color>
+	<color name="skin_color_numkeyboard_divider">#ffe5e5e5</color>
+	<color name="text_highlight_light">#FF0077D9</color>
+
+</resources>

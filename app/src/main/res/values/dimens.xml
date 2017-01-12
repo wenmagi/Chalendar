@@ -1,0 +1,67 @@
+<resources>
+	<!-- Default screen margins, per the Android Design guidelines. -->
+	<dimen name="activity_horizontal_margin">16dp</dimen>
+	<dimen name="activity_vertical_margin">16dp</dimen>
+	<dimen name="fab_margin">16dp</dimen>
+
+	<dimen name="alert_width">290dp</dimen>
+	<dimen name="common_circle_width">3dp</dimen>
+	<dimen name="progress_circle_radius">34dp</dimen>
+	<!--自定义View-->
+	<dimen name="bitmap_default_margin">15dp</dimen>
+	<dimen name="bitmap_default_edge">50dp</dimen>
+	<dimen name="default_textSize">15sp</dimen>
+
+
+	<!-- 文字尺寸分类 -->
+	<!-- 文字尺寸分类 -->
+	<dimen name="calendar_text_size">20.5sp</dimen>
+
+	<dimen name="text_size_largest">25sp</dimen>
+	<dimen name="text_size_larger">18sp</dimen>
+	<dimen name="text_size_large">17sp</dimen>
+	<dimen name="text_size_normal">16sp</dimen>
+	<dimen name="text_size_small">16sp</dimen>
+	<dimen name="text_size_micro_small">15sp</dimen>
+	<dimen name="text_size_micro">14sp</dimen>
+	<dimen name="text_size_minimal">12sp</dimen>
+	<dimen name="text_size_smallest">10sp</dimen>
+
+	<dimen name="text_size_main_title">16sp</dimen>
+	<!-- 主标题类 -->
+	<dimen name="text_size_list">15sp</dimen>
+	<!-- 列表文字 -->
+	<dimen name="text_size_sub_title">14sp</dimen>
+	<!-- 次级标题（筛选项、副标签栏） -->
+	<dimen name="text_size_describe">13sp</dimen>
+	<!-- 描述介绍类 -->
+
+	<!--  一些公共的dimen值  -->
+	<!--  一些公共的dimen值  -->
+	<dimen name="common_margin_left_right">17dp</dimen>
+	<!--页面内容左右边距-->
+	<dimen name="common_margin_top">20dp</dimen>
+	<!-- common MarginTop -->
+	<dimen name="common_margin_bottom">20dp</dimen>
+	<!-- common MarginBottom -->
+	<dimen name="common_tv_height">50dp</dimen>
+	<!-- commen TextView height -->
+	<dimen name="common_et_height">55dp</dimen>
+	<!-- commen EditText height -->
+	<dimen name="line_width">0.5dp</dimen>
+	<!-- commen Line width -->
+
+	<dimen name="common_title_bar_height">50dp</dimen>
+	<dimen name="edit_tv_height">30dp</dimen>
+	<dimen name="edit_tv_coner">15dp</dimen>
+
+	<dimen name="navigation_max_width">320dp</dimen>
+	<dimen name="navigation_icon_padding">32dp</dimen>
+	<dimen name="actionBarSize">@dimen/abc_action_bar_default_height_material</dimen>
+	<dimen name="tab_hide_scroll_threshold">20dp</dimen>
+	<dimen name="tab_show_scroll_threshold">12dp</dimen>
+
+	<dimen name="numKeyboardHeight">230.0dp</dimen>
+
+
+</resources>
