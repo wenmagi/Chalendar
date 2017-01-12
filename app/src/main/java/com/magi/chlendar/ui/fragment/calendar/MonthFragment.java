@@ -192,10 +192,9 @@ public class MonthFragment extends BaseFragment implements ViewPager.OnPageChang
 		if (mCurrentDay.equals(day))
 			return;
 
-		if (day.equals(getToday()) && monthPager != null && monthPager.getCurrentItem() != MAX_MONTH_SCROLL_COUNT / 2)
+		if (day.equals(getToday()) && monthPager != null && monthPager.getCurrentItem() != MAX_MONTH_SCROLL_COUNT / 2) {
 			monthPager.setCurrentItem(MAX_MONTH_SCROLL_COUNT / 2);
-
-		if (!day.getMonth().equals(mCurrentDay.getMonth())) {
+		} else if (!day.getMonth().equals(mCurrentDay.getMonth())) {
 			mOtherMonthDay = day;
 			changeCurrentDateAndMonth();
 		}
