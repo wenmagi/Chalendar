@@ -297,6 +297,19 @@ public class CalendarHelper {
 				.getTime()) / (7 * 3600 * 24 * 1000L));
 	}
 
+
+	public static long monthsBetweenDate(Date date1, Date date2) {
+		Calendar calDate1 = Calendar.getInstance(), calDate2 = Calendar
+				.getInstance();
+		calDate1.setTime(date1);
+		calDate2.setTime(date2);
+		int year1 = calDate1.get(Calendar.YEAR);
+		int month1 = calDate1.get(Calendar.MONTH);
+		int year2 = calDate2.get(Calendar.YEAR);
+		int month2 = calDate2.get(Calendar.MONTH);
+		return (year1 - year2) * 12l + month1 - month2;
+	}
+
 	@SuppressWarnings("unused")
 	public static int getRowIndexOfThisWeek(DateTime currentDateTime,
 	                                        int startDayOfWeek) {

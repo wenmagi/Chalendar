@@ -162,7 +162,7 @@ public class MonthFragment extends BaseFragment implements ViewPager.OnPageChang
 			return;
 
 		int item = monthPager.getCurrentItem();
-		int month = mOtherMonthDay.getMonth() - mCurrentDay.getMonth();
+		int month = (int)CalendarHelper.monthsBetweenDate(CalendarHelper.convertDateTimeToDate(mOtherMonthDay), CalendarHelper.convertDateTimeToDate(mCurrentDay));
 		monthPager.setCurrentItem(item + month);
 	}
 
