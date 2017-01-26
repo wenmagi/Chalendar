@@ -334,6 +334,7 @@ public class Util {
 		String lunarStr = lunar.getLunarDayString();
 		String holiday = lunar.getChineseHoliday();
 		String solarHoliday = lunar.getDateHoliday();
+		String solarTerm = lunar.getChineseTwentyTermsDay();
 		String tips;
 		if (isNotEmpty(holiday)) {
 			mCell.setLunarHoliday(true);
@@ -341,7 +342,10 @@ public class Util {
 		} else if (isNotEmpty(solarHoliday)) {
 			mCell.setSolarHoliday(true);
 			tips = solarHoliday;
-		} else {
+		} else if(isNotEmpty(solarTerm)){
+			mCell.setSolarHoliday(true);
+			tips = solarTerm;
+		}else {
 			if (lunarStr != null && lunarStr.contains(getString(mCell.getContext(), R.string.first_day_of_lunar_month))) {
 				tips = lunar.getLunarMonthString();
 			} else {

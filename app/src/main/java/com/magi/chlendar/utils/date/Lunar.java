@@ -447,7 +447,7 @@ public class Lunar {
     /**
      * 定气法计算二十四节气
      */
-    public String getChineseTwentyFourDay() {
+    public String getChineseTwentyTermsDay() {
         if (this.cal.get(Calendar.YEAR) == 2015 &&
                 this.cal.get(Calendar.MONTH) == 0) {
             int day = this.cal.get(Calendar.DAY_OF_MONTH);

@@ -138,6 +138,10 @@ public class CalendarFragment extends BaseLazyLoadFragment implements Observable
 
 	}
 
+	/**
+	 * 动态改变周视图的高度
+	 * @param height 新的高度
+	 */
 	private void resetWeekPagerLayoutParams(int height) {
 		FrameLayout.LayoutParams weekParams = (FrameLayout.LayoutParams) mBinding.layoutWeekCalendar.getLayoutParams();
 		mParallaxWeekHeight = weekParams.height = height;
@@ -174,9 +178,6 @@ public class CalendarFragment extends BaseLazyLoadFragment implements Observable
 		});
 	}
 
-	/**
-	 * 涟漪效果
-	 */
 	private void generateContentView() {
 		FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
 		params.topMargin = mParallaxMonthHeight + mParallaxWeekHeaderHeight;
@@ -303,9 +304,10 @@ public class CalendarFragment extends BaseLazyLoadFragment implements Observable
 			if (mIsShowingWeekPager && scrollDis < SCROLL_SLOP) {
 				//滑动状态下，下滑过程中动态改变周视图的宽度
 				if (dragging) {
-					FrameLayout.LayoutParams weekParams = (FrameLayout.LayoutParams) mBinding.layoutWeekCalendar.getLayoutParams();
-					weekParams.height = weekHeight + scrollDis;
-					mBinding.layoutWeekCalendar.setLayoutParams(weekParams);
+					resetWeekPagerLayoutParams(weekHeight + scrollDis);
+//					FrameLayout.LayoutParams weekParams = (FrameLayout.LayoutParams) mBinding.layoutWeekCalendar.getLayoutParams();
+//					weekParams.height = weekHeight + scrollDis;
+//					mBinding.layoutWeekCalendar.setLayoutParams(weekParams);
 
 				}
 			} else {
