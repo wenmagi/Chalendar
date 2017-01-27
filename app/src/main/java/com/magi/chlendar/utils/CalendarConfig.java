@@ -15,7 +15,7 @@ public class CalendarConfig {
 	//============Constant==============
 	public static final int MONTH_CALENDAR_COLUMN = 7;
 	public static final int ROWS_OF_MONTH_CALENDAR = 6;
-	private static final int MAX_EVENTS_SCROLL_COUNT = 84000;
+	public static final int MAX_EVENTS_SCROLL_COUNT = 84000;
 
 
 	public static final int MAX_WEEK_SCROLL_COUNT = MAX_EVENTS_SCROLL_COUNT / 7;

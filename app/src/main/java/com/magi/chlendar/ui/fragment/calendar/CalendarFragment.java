@@ -5,6 +5,7 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,19 +15,25 @@ import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCal
 import com.github.ksoichiro.android.observablescrollview.ScrollState;
 import com.magi.chlendar.R;
 import com.magi.chlendar.databinding.FragmentCalendarBinding;
+import com.magi.chlendar.models.Event;
+import com.magi.chlendar.ui.adapter.EventPagerAdapter;
 import com.magi.chlendar.ui.adapter.WeekdayArrayAdapter;
 import com.magi.chlendar.ui.fragment.BaseLazyLoadFragment;
 import com.magi.chlendar.utils.CalendarConfig;
 import com.magi.chlendar.utils.EventBusFactory;
 import com.magi.chlendar.utils.LogUtils;
+import com.magi.chlendar.utils.date.CalendarHelper;
+import com.magi.chlendar.utils.date.DateTime;
 import com.magi.chlendar.utils.date.DayStyles;
 import com.nineoldandroids.view.ViewHelper;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import static com.magi.chlendar.utils.CalendarConfig.CELL_HEIGHT;
 import static com.magi.chlendar.utils.CalendarConfig.FIRST_DAY_OF_WEEK;
+import static com.magi.chlendar.utils.CalendarConfig.MAX_EVENTS_SCROLL_COUNT;
 import static com.magi.chlendar.utils.CalendarConfig.ROWS_OF_MONTH_CALENDAR;
 
 /**
@@ -76,6 +83,8 @@ public class CalendarFragment extends BaseLazyLoadFragment implements Observable
 	private MonthFragment mMonthPagerFragment;
 
 	private boolean mUpOrCancelTriggered = false;
+
+	private int mEventInitialPagerIndex = MAX_EVENTS_SCROLL_COUNT / 2;
 
 	@Override
 	protected View createView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -140,6 +149,7 @@ public class CalendarFragment extends BaseLazyLoadFragment implements Observable
 
 	/**
 	 * 动态改变周视图的高度
+	 *
 	 * @param height 新的高度
 	 */
 	private void resetWeekPagerLayoutParams(int height) {
@@ -191,8 +201,38 @@ public class CalendarFragment extends BaseLazyLoadFragment implements Observable
 				FrameLayout.LayoutParams lps = (FrameLayout.LayoutParams) mBinding.contentMain.getLayoutParams();
 				lps.height = mParallaxContentViewHeight + mParallaxMonthHeight - mParallaxWeekHeight;
 				mBinding.contentMain.setLayoutParams(lps);
+				generateEventPager();
 			}
 		});
+	}
+
+	private void generateEventPager() {
+		List<Event> events = new ArrayList<>();
+		EventPagerAdapter adapter = new EventPagerAdapter(getContext(), events);
+		mBinding.eventPager.setAdapter(adapter);
+		mBinding.eventPager.setOffscreenPageLimit(0);
+		mBinding.eventPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+			@Override
+			public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+			}
+
+			@Override
+			public void onPageSelected(int position) {
+				if (position > mEventInitialPagerIndex) {
+					CalendarHelper.setSelectedDay(CalendarHelper.getSelectedDay().plusDays(1));
+				} else if (position < mEventInitialPagerIndex) {
+					CalendarHelper.setSelectedDay(CalendarHelper.getSelectedDay().minusDays(1));
+				}
+				mEventInitialPagerIndex = position;
+			}
+
+			@Override
+			public void onPageScrollStateChanged(int state) {
+
+			}
+		});
+		mBinding.eventPager.setCurrentItem(MAX_EVENTS_SCROLL_COUNT / 2);
 	}
 
 	@Override

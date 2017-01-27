@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-	>
+>
 
 
 	<com.magi.chlendar.ui.widget.TriggerScrollView
@@ -10,12 +10,12 @@
 		android:fillViewport="true"
 		android:overScrollMode="never"
 		android:scrollbars="none"
-		>
+	>
 
 		<FrameLayout
 			android:layout_width="match_parent"
 			android:layout_height="match_parent"
-			>
+		>
 
 			<FrameLayout
 				android:id="@+id/layout_week_calendar"
@@ -31,7 +31,7 @@
 					android:layout_height="wrap_content"
 					android:layout_gravity="center_vertical"
 					android:orientation="vertical"
-					/>
+				/>
 			</FrameLayout>
 
 			<FrameLayout
@@ -39,7 +39,7 @@
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				android:background="@color/white"
-				>
+			>
 
 				<LinearLayout
 					android:id="@+id/month_calendar"
@@ -51,7 +51,7 @@
 					android:id="@+id/f_month_calendar"
 					android:layout_width="match_parent"
 					android:layout_height="match_parent"
-					/>
+				/>
 			</FrameLayout>
 
 
@@ -64,6 +64,7 @@
 				android:numColumns="7"
 				android:stretchMode="columnWidth"/>
 
+
 			<RelativeLayout
 				android:id="@+id/content_main"
 				android:layout_width="match_parent"
@@ -73,13 +74,13 @@
 				android:paddingLeft="5dp"
 				android:paddingRight="5dp"
 				android:paddingTop="10dp"
-				>
+			>
 
-				<LinearLayout
+				<android.support.v4.view.ViewPager
+					android:id="@+id/event_pager"
 					android:layout_width="match_parent"
 					android:layout_height="match_parent"
-					android:background="@drawable/event_gray_bg"
-					android:orientation="vertical"/>
+				/>
 			</RelativeLayout>
 
 		</FrameLayout>
