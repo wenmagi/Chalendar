@@ -49,10 +49,18 @@ public class CalendarHelper {
 	 * @param selectedDay 新选择的日期
 	 */
 	public static void setSelectedDay(DateTime selectedDay) {
-		CalendarHelper.selectedDay = selectedDay;
-		EventBusFactory.postDayChangeEvent(selectedDay.getDate());
+		setSelectedDay(selectedDay, true);
 	}
 
+	/**
+	 * @param selectedDay 新选择的日期
+	 * @param needPostDayChangeEvent 是否发送 DayChangeEvent 事件
+	 */
+	public static void setSelectedDay(DateTime selectedDay, boolean needPostDayChangeEvent) {
+		CalendarHelper.selectedDay = selectedDay;
+		if (needPostDayChangeEvent)
+			EventBusFactory.postDayChangeEvent(selectedDay.getDate());
+	}
 	/**
 	 * Retrieve all the dates for a given calendar month Include previous month,
 	 * current month and next month.
@@ -308,6 +316,14 @@ public class CalendarHelper {
 		int year2 = calDate2.get(Calendar.YEAR);
 		int month2 = calDate2.get(Calendar.MONTH);
 		return (year1 - year2) * 12l + month1 - month2;
+	}
+
+
+	public static int daysBetweenDate(Date date1, Date date2) {
+		Date d1 = cc_dateByMovingToBeginningOfDay(date1);
+		Date d2 = cc_dateByMovingToBeginningOfDay(date2);
+		int o = (int)((d1.getTime() - d2.getTime()) / 86400000L);
+		return o;
 	}
 
 	@SuppressWarnings("unused")

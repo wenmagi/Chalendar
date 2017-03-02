@@ -10,27 +10,32 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCallbacks;
 import com.github.ksoichiro.android.observablescrollview.ScrollState;
 import com.magi.chlendar.R;
 import com.magi.chlendar.databinding.FragmentCalendarBinding;
 import com.magi.chlendar.models.Event;
+import com.magi.chlendar.models.event.DayChangeEvent;
 import com.magi.chlendar.ui.adapter.EventPagerAdapter;
 import com.magi.chlendar.ui.adapter.WeekdayArrayAdapter;
 import com.magi.chlendar.ui.fragment.BaseLazyLoadFragment;
 import com.magi.chlendar.utils.CalendarConfig;
 import com.magi.chlendar.utils.EventBusFactory;
-import com.magi.chlendar.utils.LogUtils;
 import com.magi.chlendar.utils.date.CalendarHelper;
-import com.magi.chlendar.utils.date.DateTime;
 import com.magi.chlendar.utils.date.DayStyles;
 import com.nineoldandroids.view.ViewHelper;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import static android.support.v4.view.ViewPager.SCROLL_STATE_DRAGGING;
 import static com.magi.chlendar.utils.CalendarConfig.CELL_HEIGHT;
 import static com.magi.chlendar.utils.CalendarConfig.FIRST_DAY_OF_WEEK;
 import static com.magi.chlendar.utils.CalendarConfig.MAX_EVENTS_SCROLL_COUNT;
@@ -70,6 +75,8 @@ public class CalendarFragment extends BaseLazyLoadFragment implements Observable
 
 	FragmentCalendarBinding mBinding;
 
+	private Date mToday;
+
 	private Date mSelectedDate;
 	// MonthView 的高度
 	private int mParallaxMonthHeight;
@@ -85,6 +92,10 @@ public class CalendarFragment extends BaseLazyLoadFragment implements Observable
 	private boolean mUpOrCancelTriggered = false;
 
 	private int mEventInitialPagerIndex = MAX_EVENTS_SCROLL_COUNT / 2;
+	/**
+	 * 用来标志「日期改变是否由 EventPager 滑动引起」
+	 */
+	private boolean mTriggerByEventPager = false;
 
 	@Override
 	protected View createView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -95,7 +106,7 @@ public class CalendarFragment extends BaseLazyLoadFragment implements Observable
 	@Override
 	public void onAttach(Context context) {
 		super.onAttach(context);
-		mSelectedDate = new Date();
+		mToday = mSelectedDate = new Date();
 	}
 
 	@Override
@@ -109,11 +120,13 @@ public class CalendarFragment extends BaseLazyLoadFragment implements Observable
 	@Override
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
+		EventBus.getDefault().register(this);
 	}
 
 	@Override
 	public void onDestroyView() {
 		super.onDestroyView();
+		EventBus.getDefault().unregister(this);
 	}
 
 	/**
@@ -219,17 +232,28 @@ public class CalendarFragment extends BaseLazyLoadFragment implements Observable
 
 			@Override
 			public void onPageSelected(int position) {
-				if (position > mEventInitialPagerIndex) {
-					CalendarHelper.setSelectedDay(CalendarHelper.getSelectedDay().plusDays(1));
-				} else if (position < mEventInitialPagerIndex) {
-					CalendarHelper.setSelectedDay(CalendarHelper.getSelectedDay().minusDays(1));
+				if (mTriggerByEventPager) {
+					//只有手动滑动 EventPager 才触发以下操作
+					//发送 DayChangeEvent 通知
+					mTriggerByEventPager = false;
+					int offset = position - mEventInitialPagerIndex;
+					if (offset == 1) {
+						CalendarHelper.setSelectedDay(CalendarHelper.getSelectedDay().plusDays(1), true);
+					} else if (offset == -1) {
+						CalendarHelper.setSelectedDay(CalendarHelper.getSelectedDay().minusDays(1), true);
+					}
 				}
+
 				mEventInitialPagerIndex = position;
 			}
 
 			@Override
 			public void onPageScrollStateChanged(int state) {
-
+				//此次 ViewPager TransForm 活动是人为的滑动，并非 setCurrentItem（）操作。
+				//如果手动滑动，发送 DayChangeEvent 事件，setCurrentItem 不发送。
+				if (state == SCROLL_STATE_DRAGGING) {
+					mTriggerByEventPager = true;
+				}
 			}
 		});
 		mBinding.eventPager.setCurrentItem(MAX_EVENTS_SCROLL_COUNT / 2);
@@ -274,7 +298,7 @@ public class CalendarFragment extends BaseLazyLoadFragment implements Observable
 				return 0;
 
 			default:
-				return 1 / 2;
+				return 1f / 2f;
 		}
 	}
 
@@ -345,10 +369,6 @@ public class CalendarFragment extends BaseLazyLoadFragment implements Observable
 				//滑动状态下，下滑过程中动态改变周视图的宽度
 				if (dragging) {
 					resetWeekPagerLayoutParams(weekHeight + scrollDis);
-//					FrameLayout.LayoutParams weekParams = (FrameLayout.LayoutParams) mBinding.layoutWeekCalendar.getLayoutParams();
-//					weekParams.height = weekHeight + scrollDis;
-//					mBinding.layoutWeekCalendar.setLayoutParams(weekParams);
-
 				}
 			} else {
 				if (mIsShowingWeekPager) {
@@ -378,6 +398,17 @@ public class CalendarFragment extends BaseLazyLoadFragment implements Observable
 	@Override
 	public void onUpOrCancelMotionEvent(ScrollState scrollState) {
 		mUpOrCancelTriggered = true;
+	}
+
+	/**
+	 * 当日期改变时，触发此方法
+	 */
+	@SuppressWarnings("unused")
+	@Subscribe(threadMode = ThreadMode.MAIN)
+	public void onDayChangeEventMainThread(DayChangeEvent event) {
+		//每次日期改变，重新计算 EventPager 的 CurrentItem
+		int offset = CalendarHelper.daysBetweenDate(event.currentDay, mToday);
+		mBinding.eventPager.setCurrentItem(MAX_EVENTS_SCROLL_COUNT / 2 + offset, true);
 	}
 
 }

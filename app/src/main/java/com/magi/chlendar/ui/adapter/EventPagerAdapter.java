@@ -2,7 +2,6 @@ package com.magi.chlendar.ui.adapter;
 
 import android.content.Context;
 import android.support.v4.util.LruCache;
-import android.support.v4.view.LayoutInflaterCompat;
 import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
