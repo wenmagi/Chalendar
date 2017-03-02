@@ -408,7 +408,7 @@ public class CalendarFragment extends BaseLazyLoadFragment implements Observable
 	public void onDayChangeEventMainThread(DayChangeEvent event) {
 		//每次日期改变，重新计算 EventPager 的 CurrentItem
 		int offset = CalendarHelper.daysBetweenDate(event.currentDay, mToday);
-		mBinding.eventPager.setCurrentItem(MAX_EVENTS_SCROLL_COUNT / 2 + offset, true);
+		mBinding.eventPager.setCurrentItem(MAX_EVENTS_SCROLL_COUNT / 2 + offset, false);
 	}
 
 }
