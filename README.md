@@ -1,4 +1,4 @@
-# chinese Chalendar
+# Chinese Chalendar
 一款比较漂亮的 Android 中国日历
 ## CircularAnim [![](https://jitpack.io/v/XunMengWinter/CircularAnim.svg)](https://jitpack.io/#XunMengWinter/CircularAnim)
 
