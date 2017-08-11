@@ -12,4 +12,5 @@
 
 其中还包含了诸如农历算法，Datetime工具，以及自定义的LogUtils工具，使用颇方便。
 
+基于 Calendar 写了[心记](https://play.google.com/store/apps/details?id=com.magi.chalendar)的软件，大家可以看下
 ####由于书写的时间不长，如果有什么 Bug 还请告知 zhihumagi@gmail.com
